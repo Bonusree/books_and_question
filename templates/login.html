@@ -1,0 +1,43 @@
+{% extends 'master.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+<div class="container bg-dark" style="min-width:1350px;min-height: 90vh;">
+  <div class="card position-absolute top-50 start-50 translate-middle shadow-lg border-5 p-3 mx-auto  bg-dark text-white rounded" style="width:400px;">
+    <div class="card-header text-top border-bottom text-center">Login </div>
+    <div class="card-body">
+      <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group mt-2">
+          <label for="name">Name:</label>
+          <div class="input-group">
+            <input type="name" class="form-control" id="name"
+              name="name" placeholder="Enter your email">
+           
+          </div>
+        </div>
+        <div class="form-group mt-2">
+          <label for="ID">ID:</label>
+          <div class="input-group">
+            <input type="ID" class="form-control" id="ID"
+              name="ID" placeholder="Enter your ID">
+            <!-- <button type="button" class="" id="toggleID">
+            <i class="bi bi-eye-slash" ></i> 
+            </button> -->
+          </div>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-secondary mt-3">Login</button>
+        </div>
+
+      </form>
+    </div>
+    <div class="card-header text-end border-top border-bottom-0" >
+      <a href="/signup">Register</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

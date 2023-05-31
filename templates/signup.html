@@ -1,0 +1,49 @@
+{% extends 'master.html' %}
+  
+{% block title %}
+  Signup
+{% endblock %}
+
+{% block content %}
+<div class="container bg-dark" style="min-width:1350px;min-height: 90vh;">
+  <div class="card position-absolute top-50 start-50 translate-middle shadow-lg border-5 p-3 mx-auto  bg-dark text-white rounded" style="width:400px;">
+    <div class="card-header text-top border-bottom text-center">Register </div>
+    <div class="card-body">
+      <form action="{% url 'signup' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group mt-2">
+          <label for="name">Name:</label>
+          <input type="text" class="form-control my-input" id="name" name="name"
+            placeholder="Enter your name">
+        </div>
+        
+        <div class="form-group mt-2">
+          <label for="ID">Id:</label>
+          <input type="text" class="form-control" id="ID" name="ID"
+            placeholder="Enter your ID">
+        </div>
+        <div class="form-group mt-2">
+          <label for="session">session:</label>
+          <div class="input-group">
+            <input type="session" class="form-control" id="session" name="session" placeholder="Enter your session">
+            {% comment %} <button type="button" class="my-eye-btn bi bi-eye-slash" id="togglesession">
+               <i class="bi bi-eye-slash"></i> 
+            </button> {% endcomment %}
+          </div>
+        </div>
+        
+        </div>
+        
+        <div class="text-center" >
+          <button type="submit" class="btn btn-secondary text-white m-3">Signup</button>
+        </div>
+        
+      </form>
+      <div class="card-header text-end border-top border-bottom-0">
+        <a href="/login/">Login</a>
+      </div>
+    </div>
+    
+  </div>
+</div>
+{% endblock %}

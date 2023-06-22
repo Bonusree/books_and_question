@@ -27,6 +27,11 @@
       src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="{% static 'js/js.js' %}"></script>
     
+    <style>
+      .navbar-nav .nav-link.active {
+        color: red;
+      }
+    </style>
     
    
     </head>
@@ -44,17 +49,17 @@
               <li class="nav-item ms-5" style="font-family: Audiowide, sans-serif;">
                 <h1>Help</h1>
               </li>
-              <li class="nav-item me-5" style="font-family: Audiowide, sans-serif;">
+              <li class="nav-item-default me-5" style="font-family: Audiowide, sans-serif;">
                 <h1 style="color:red">!</h1>
               </li>
               <li class="nav-item ">
-                <a class="nav-link h4 link-light" href="/">Home</a>
+                <a class="nav-link h4 link-light " href="/">Home</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link h4 link-light" href="/books">Books</a>
+              <li class="nav-item ">
+                <a class="nav-link h4 link-light " href="/books">Books</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link h4 link-light" href="/question">Questions </a>
+              <li class="nav-item ">
+                <a class="nav-link h4 link-light " href="/question">Questions </a>
               </li>
             </ul>
             <ul class="navbar-nav d-flex">
@@ -85,4 +90,6 @@
   {% endblock %}
 
 </body>
+
+
 </html>

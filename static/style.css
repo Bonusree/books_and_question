@@ -8,11 +8,28 @@
     border: 1px solid #ddd; 
     margin-bottom: 12px;
   }
-  
-  #myTable {
+.navbar_a:link {
+    color: green;
+}
+
+/* visited link */
+.navbar_a:visited {
+    color: green;
+}
+
+/* mouse over link */
+navbar_a:hover {
+    color: red;
+}
+
+/* selected link */
+navbar_a:active {
+    color: yellow;
+}
+  /* #myTable {
     border-collapse: collapse;
     width: 100%; 
     border: 1px solid #ddd;
     font-size: 18px; 
-  }
+  } */
   

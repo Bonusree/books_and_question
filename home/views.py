@@ -1,5 +1,7 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+User=get_user_model()
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
@@ -17,24 +19,24 @@ def signup(request):
         id=request.POST.get('ID')
         session=request.POST.get('session')
         context={'type':'error','message':''}
-        if User.objects.filter(email=id).exists():
-            context['message']="Already registered  with this ID"
-            return render(request,'signup.html',context=context)
-        my_user=User.objects.create_user(username=name, email=id,first_name=session)
-        my_user.save()
+        # if User.objects.filter(id=id).exists():
+        #     context['message']="Already registered  with this ID"
+        #     return render(request,'signup.html',context=context)
+        user=User.objects.create_user(username=name, id=id,session=session)
+        user.save()
+        login(request,user)
         return render(request, 'login.html')
     return render(request, 'signup.html')
-def login(request):
+def login_view(request):
     if request.method=='POST':
         name=request.POST.get('name')
         id=request.POST.get('ID')
         context={'type':'error','message':''}
-        user=authenticate(request,username=name,email=id)
+        user=authenticate(request,username=name,id=id)
         print(user)
         if user is not None:
             login(request,user)
             context = {'type':'success','message':'Successfully you are logged in.'}
-            request.session['context'] = context
             return redirect('home')
             
             

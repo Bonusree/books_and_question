@@ -40,9 +40,12 @@
               </div>
               <div class="modal-body">
                 <h2>Uploaded PDF</h2>
-                <a href="/static/book.jpg" download>session</a>
+                <p style="color:red;">*Name the file with session </p>
+                
+                <a  href="/static/book.jpg" download>session</a><br>
+                <a  href="/static/book.jpg" download>session</a><br>
                 {% comment %} <embed src="/static/book.jpg" width="500" height="600" type="application/pdf"> {% endcomment %}
-                <form method="POST" enctype="multipart/form-data">
+                <form style="margin-top:20px;" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
                   <input type="file" name="pdf_file">
                   <button type="submit">Upload</button>
@@ -60,11 +63,12 @@
             </div>
             <div class="modal-body">
               <h2>Uploaded PDF</h2>
+              <p style="color:red;">*Name the file with session </p>
               <a href="/static/book.jpg" download>Download PDF</a>
               {% comment %} <embed src="/static/book.jpg" width="500" height="600" type="application/pdf"> {% endcomment %}
               <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input type="file" name="pdf_file">
+                <input type="file" name="pdf_file" value="something">
                 <button type="submit">Upload</button>
             </form>
             </div>

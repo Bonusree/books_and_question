@@ -18,6 +18,7 @@ TEMPLATE_DIR=os.path.join(BASE_DIR,'templates')
 STATIC_DIR=os.path.join(BASE_DIR,'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 WKHTMLTOPDF_CMD = '/path/to/my/wkhtmltopdf'
+AUTH_USER_MODEL = 'home.CustomUser'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -34,6 +35,11 @@ ALLOWED_HOSTS = []
 # Application definition
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+AUTHENTICATION_BACKENDS = [
+    'books_and_question.custom_auth_backend.CustomAuthBackend',
+    # other authentication backends...
+]
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,6 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap5',
+    'home',
+    'books',
+    'questions',
    
 ]
 
@@ -80,10 +89,18 @@ WSGI_APPLICATION = 'books_and_question.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'books_and_question',
+        'ENFORCE_SCHEMA': False,
     }
 }
 

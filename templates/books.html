@@ -32,13 +32,13 @@ books
                 
                 <div> 
                   {% if user.is_authenticated %}
-                  <button type="button" class="btn btn-sm border btn-default fw-bold mx-3" style="color:blue;" data-bs-toggle="modal" data-bs-target="#add">Add </button>
-                  <button type="button" class="btn btn-default btn-sm border fw-bold" style="color:blue;" data-bs-toggle="modal" data-bs-target="#edit">edit</button>
+                  <button type="button" class="btn btn-sm border btn-default fw-bold mx-3" style="color:blue;" data-bs-toggle="modal" data-bs-target="#add_available_books">Add </button>
+                  <button type="button" class="btn btn-default btn-sm border fw-bold" style="color:blue;" data-bs-toggle="modal" data-bs-target="#edit_available_books">edit</button>
                 {%endif%}
                 </div>
               </div>
-              
-              <h4 class="m-2">Course Title</h4>
+              {% for b in books.available%}
+              <h4 class="m-2">{{b.course_title}}</h4>
               <table class="table table-striped table-bordered m-3" style="width:90%;" >
         
                 <thead >
@@ -55,39 +55,11 @@ books
                 <tbody>
                   <tr>
                     <td>#</td>
-                    <td>Course Title</td>
-                    <td>writername</td>
-                    <td>ownername</td>
-                    <td>Batch</td>
-                    <td>11809089</td>
-                    <td>
-                      <form>
-                        <input type="radio" value="yes">
-                        
-                      </form>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>#</td>
-                    <td>Course Title</td>
-                    <td>writername</td>
-                    <td>ownername</td>
-                    <td>Batch</td>
-                    <td>id</td>
-                    <td>
-                      <form>
-                        <input type="radio" value="yes">
-                        
-                      </form>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>#</td>
-                    <td>Course Title</td>
-                    <td>writername</td>
-                    <td>ownername</td>
-                    <td>Batch</td>
-                    <td>id</td>
+                    <td>{{b.books_name}}</td>
+                    <td>{{b.writter_name}}</td>
+                    <td>{{b.owner_name}}</td>
+                    <td>{{b.session}}</td>
+                    <td>{{b.session}}</td>
                     <td>
                       <form>
                         <input type="radio" value="yes">
@@ -97,7 +69,7 @@ books
                   </tr>
                 </tbody>
               </table>
-             
+              {% endfor %}
             </div>
            
             <div id="section3" class="card text-dark bg-light m-4" style="max-width:
@@ -106,13 +78,14 @@ books
                 <div class="flex-fill">Need</div>
                 <div> 
                   {% if user.is_authenticated %}
-                  <button type="button" class="btn btn-sm border btn-default fw-bold mx-3" style="color:blue;" data-bs-toggle="modal" data-bs-target="#add">Add </button>
-                  <button type="button" class="btn btn-default btn-sm border fw-bold" style="color:blue;" data-bs-toggle="modal" data-bs-target="#edit">edit</button>
+                  <button type="button" class="btn btn-sm border btn-default fw-bold mx-3" style="color:blue;" data-bs-toggle="modal" data-bs-target="#add_need_books">Add </button>
+                  <button type="button" class="btn btn-default btn-sm border fw-bold" style="color:blue;" data-bs-toggle="modal" data-bs-target="#edit_need_books">edit</button>
                 {%endif%}
                 </div>
               </div>
               <div class="card m-4 p-3">
-                <h4 class="m-2">Course Title</h4>
+                {% for b in books.available%}
+                <h4 class="m-2">{{b.course_title}}</h4>
                 <table class="table table-striped table-bordered m-3" style="width:90%;" >
           
                   <thead >
@@ -120,23 +93,31 @@ books
                       <th>#</th>
                       <th>Books name</th>
                       <th>Writer Name</th>
-                      <th>Borrower Name</th>
+                      <th>Owner Name</th>
                       <th>Batch</th>
                       <th>ID</th>
+                      <th>select</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>#</td>
-                      <td>Course Title</td>
-                      <td>writername</td>
-                      <td>borrowername</td>
-                      <td>Batch</td>
-                      <td>11809089</td>
+                      <td>{{b.books_name}}</td>
+                      <td>{{b.writter_name}}</td>
+                      <td>{{b.owner_name}}</td>
+                      <td>{{b.session}}</td>
+                      <td>{{b.session}}</td>
+                      <td>
+                        <form>
+                          <input type="radio" value="yes">
+                          
+                        </form>
+                      </td>
                     </tr>
                     
                   </tbody>
                 </table>
+                {% endfor %}
                 <h4 class="m-2">Course Title</h4>
                 <table class="table table-striped table-bordered m-3" style="width:90%;" >
           
@@ -178,7 +159,7 @@ books
 </div>
 
 <!--modal-->
-<div class="modal fade" id="add" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
+<div class="modal fade" id="add_available_books" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
           <div class="modal-header">
@@ -187,11 +168,11 @@ books
           </div>
           <div class="modal-body">
             
-            <form action="" method="POST">
+            <form action="{% url 'add_available_books' %}" method="POST">
               {% csrf_token %}
               <div class="form-group mt-2">
                 
-                <input type="text" class="form-control my-input" id="name" name="course_name"
+                <input type="text" class="form-control my-input" id="name" name="course_title"
                   placeholder="Enter Course title">
               </div>
               
@@ -214,7 +195,7 @@ books
       </div>
   </div> 
 </div>
-  <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+  <div class="modal fade" id="edit_available_books" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
@@ -222,12 +203,71 @@ books
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          
-          <form style="margin-top:20px;" method="POST" enctype="multipart/form-data">
+          <ol>
+          <li><form style="margin-top:20px;" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <input type="text" name="add_book" placeholder="Give your book's name"> 
-            <button type="submit">Add</button>
-        </form>
+            name of the book 
+            <input type="radio" value="yes">
+          </li></form>
+        <ol>
+        </div>
+        </div>
+    </div>   
+  </div>
+
+  <!--Need-->
+  <!--modal-->
+<div class="modal fade" id="add_need_books" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="addLabel">Add the book's name what you have</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            
+            <form action="{% url 'add_need_books' %}" method="POST">
+              {% csrf_token %}
+              <div class="form-group mt-2">
+                
+                <input type="text" class="form-control my-input" id="name" name="course_title"
+                  placeholder="Enter Course title">
+              </div>
+              
+              <div class="form-group mt-2">
+                <input type="text" class="form-control" id="ID" name="book_name"
+                  placeholder="Enter book name">
+              </div>
+              <div class="form-group mt-2">
+                <input type="text" class="form-control" id="ID" name="writer_name"
+                  placeholder="Enter writer name">
+                </div>
+              
+              <div class="text-center" >
+                <button type="submit" class="btn btn-secondary text-white m-3">Add</button>
+              </div>
+             
+              
+            </form>
+          </div>
+      </div>
+  </div> 
+</div>
+  <div class="modal fade" id="edit_need_books" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addLabel">Name of the books that you added</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ol>
+          <li><form style="margin-top:20px;" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            name of the book 
+            <input type="radio" value="yes">
+          </li></form>
+        <ol>
         </div>
         </div>
     </div>   

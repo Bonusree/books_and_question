@@ -9,8 +9,7 @@ from django.db.utils import DatabaseError
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
-def books(request):
-    return render(request, 'books.html')
+
 def question(request):
     return render(request, 'question.html')
 def signup(request):

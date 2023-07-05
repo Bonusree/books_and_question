@@ -4,7 +4,10 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class course_title(models.Model):
-    Course_title=models.CharField(max_length=250)
+   
+    name=models.CharField(max_length=250)
+    def __str__(self):
+        return self.name
     
 class available_books(models.Model):
     

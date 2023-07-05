@@ -3,10 +3,10 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.db import models
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, username, id, session,**extra_fields):
+    def create_user(self, username, roll, session,**extra_fields):
         user = self.model(
             username=username,
-            id=id ,
+            roll=roll ,
             session=session,
             **extra_fields,
 )
@@ -14,8 +14,8 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, id,session,**extra_fields):
-        user = self.create_user(username=username, id=id, session=session)
+    def create_superuser(self, username, roll,session,**extra_fields):
+        user = self.create_user(username=username, roll=roll, session=session)
         user.is_superuser = True
         user.is_admin=True
         user.save(using=self._db)
@@ -23,12 +23,12 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=255, unique=True)
-    id = models.CharField(max_length=255,primary_key=True,unique=True)  # Treat the id field as the phone id
+    roll = models.CharField(max_length=255,primary_key=True,unique=True)  # Treat the roll field as the phone roll
     session=models.CharField(max_length=255,unique=False)
     is_staff = models.BooleanField(default=False) 
     is_superuser=models.BooleanField(default=False)
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['id', 'session']
+    REQUIRED_FIELDS = ['roll', 'session']
 
     objects = CustomUserManager()
 

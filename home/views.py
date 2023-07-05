@@ -15,23 +15,23 @@ def question(request):
 def signup(request):
     if request.method=='POST':
         name=request.POST.get('name')
-        id=request.POST.get('ID')
+        roll=request.POST.get('ID')
         session=request.POST.get('session')
         context={'type':'error','message':''}
         # if User.objects.filter(id=id).exists():
         #     context['message']="Already registered  with this ID"
         #     return render(request,'signup.html',context=context)
-        user=User.objects.create_user(username=name, id=id,session=session)
+        user=User.objects.create_user(username=name, roll=roll,session=session)
         user.save()
         login(request,user)
-        return render(request, 'login.html')
+        return redirect( 'home')
     return render(request, 'signup.html')
 def login_view(request):
     if request.method=='POST':
         name=request.POST.get('name')
-        id=request.POST.get('ID')
+        roll=request.POST.get('ID')
         context={'type':'error','message':''}
-        user=authenticate(request,username=name,id=id)
+        user=authenticate(request,username=name,roll=roll)
         print(user)
         if user is not None:
             login(request,user)

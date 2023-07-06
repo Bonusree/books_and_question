@@ -77,21 +77,24 @@ def books_overview(request):
     
     books={}
     for t in title:
-        books={t.name:{'available':[],'need':[]}}
+        books.update({t.name:{'available':[],'need':[]}})
+       
     for b in allBooks:
         ct=b.Course_title.name
-        a={'b_name':b.books_name, 'owner-name':b.owner_name,
+        a={'b_name':b.books_name, 'owner_name':b.owner_name,
            'writer_name':b.writer_name, 'roll':b.roll, 'session':b.session}
        # print(a)
-        books[ct]['available'].append(a)
+        if ct in books:
+            books[ct]['available'].append(a)
         #print(books[ct]['available'])
     needbooks=need_books.objects.all()
     for b in needbooks:
         ct=b.Course_title.name
         a={'b_name':b.books_name, 'borrower':b.borrower_name,
            'writer_name':b.writer_name, 'roll':b.roll, 'session':b.session}
-        books[ct]['need'].append(a)
+        if ct in books:
+            books[ct]['need'].append(a)
     print(books)
     #b={'available':books['available'],'need':books['need']}
-    return render(request, 'books.html', context=books)
+    return render(request, 'books.html', context={'books': books})
 

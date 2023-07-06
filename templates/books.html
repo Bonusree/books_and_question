@@ -37,11 +37,13 @@ books
                   {%endif%}
                 </div>
               </div>
-            
-              {% for b in available %}
-              <h4 class="m-2">{{b.course_title}}</h4>
+              {%for course_title, book_data in books.items %}
+              <h2>{{ course_title }}</h2>
+              {% endfor %}
+              {% for course_title, book_data in books.items%}
+              <h4 class="m-2">{{course_title}}</h4>
               <table class="table table-striped table-bordered m-3" style="width:90%;" >
-        
+          {% comment %}         
                 <thead >
                   <tr>
                     <th>#</th>
@@ -69,7 +71,7 @@ books
                     </td>
                   </tr>
                 </tbody>
-              </table>
+              </table> {% endcomment %}
               {% endfor %}
             </div>
            

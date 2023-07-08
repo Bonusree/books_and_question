@@ -74,8 +74,13 @@ def add_need_books(request):
 def books_overview(request):
     allBooks=available_books.objects.all()
     title=course_title.objects.all()
-    
     books={}
+    if request.user.is_authenticated:
+        books={'user_available':[],'user_need':[]}
+        roll=request.user.roll
+        user_available=available_books.objects.filter(roll=roll).values()
+        
+    
     for t in title:
         books.update({t.name:{'available':[],'need':[]}})
        
@@ -94,7 +99,7 @@ def books_overview(request):
            'writer_name':b.writer_name, 'roll':b.roll, 'session':b.session}
         if ct in books:
             books[ct]['need'].append(a)
-    print(books)
+    
     #b={'available':books['available'],'need':books['need']}
     return render(request, 'books.html', context={'books': books})
 

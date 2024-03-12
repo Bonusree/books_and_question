@@ -10,8 +10,7 @@ from django.db.utils import DatabaseError
 def home(request):
     return render(request, 'home.html')
 
-def question(request):
-    return render(request, 'question.html')
+
 def signup(request):
     if request.method=='POST':
         name=request.POST.get('name')

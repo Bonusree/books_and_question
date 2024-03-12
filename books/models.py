@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class course_title(models.Model):
-   
+    
     name=models.CharField(max_length=250)
     def __str__(self):
         return self.name
@@ -26,10 +26,10 @@ class need_books(models.Model):
     roll=models.CharField(max_length=250)
     session=models.CharField(max_length=250)
 
-from django.db import models
-from django.conf import settings
+# from django.db import models
+# from django.conf import settings
 
 
-class beg_for_book(models.Model):
-    borrower = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    books = models.ForeignKey(available_books, on_delete=models.CASCADE)
+# class beg_for_book(models.Model):
+#     borrower = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+#     books = models.ForeignKey(available_books, on_delete=models.CASCADE)

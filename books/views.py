@@ -1,12 +1,15 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth import get_user_model
-from books.models import available_books, need_books, course_title
+from books.models import *
+from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth.models import User
 User = get_user_model()
-
+@login_required
 def add_available_books(request):
     if request.method == 'POST':
         Course_title = request.POST.get("course_title")
+       
         books_name = request.POST.get("book_name")
         owner_name = request.user.get_full_name()
         writer_name = request.POST.get("writer_name")
@@ -34,21 +37,24 @@ def add_available_books(request):
                 print(e)
                 context = {'review': 'no', 'msg': 'An error occurred while saving the book'}
 
-        return render(request, 'books.html', context=context)
+        return redirect('books')
 
     return redirect('books')
-
+@login_required
 def add_need_books(request):
     if request.method=='POST':
         Course_title=request.POST.get("course_title")
+        
         books_name=request.POST.get("book_name")
         borrower_name=request.user.get_full_name()
         writer_name=request.POST.get("writer_name")
         roll=request.user.roll
         session=request.user.session
-        
-        ex=need_books.objects.filter( books_name=books_name,borrower_name=borrower_name,
-                                        writer_name=writer_name,roll=roll,session=session).exists()
+        try:
+            ex=need_books.objects.filter( books_name=books_name,borrower_name=borrower_name,
+                                            writer_name=writer_name,roll=roll,session=session).exists()
+        except Exception as e:
+            print(e)
                 
         context={'review':'','msg':''}
         if ex:
@@ -61,15 +67,15 @@ def add_need_books(request):
                                         writer_name=writer_name, roll=roll, session=session)
                 books.save()
                 # Assign the course_title using set()
-
+                print("keya hua")
                 context = {'review': 'yes', 'msg': 'Added successfully'}
             except Exception as e:
                 print(e)
                 context = {'review': 'no', 'msg': 'An error occurred while saving the book'}
-        return render(request, 'books.html', context=context)
+        return redirect('books')
 
     
-    return redirect(request, 'books') 
+    return redirect('books')
 
 def books_overview(request):
     allBooks=available_books.objects.all()

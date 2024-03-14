@@ -20,6 +20,7 @@ STATIC_DIR=os.path.join(BASE_DIR,'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 WKHTMLTOPDF_CMD = '/path/to/my/wkhtmltopdf'
 AUTH_USER_MODEL = 'home.CustomUser'
+CSRF_COOKIE_SECURE = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -91,20 +92,20 @@ WSGI_APPLICATION = 'books_and_question.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'books_and_question',
-        'ENFORCE_SCHEMA': False,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'books_and_question',
+#         'ENFORCE_SCHEMA': False,
+#     }
+# }
 
 
 # Password validation

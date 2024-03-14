@@ -24,20 +24,21 @@
         <thead >
           <tr>
             <th>Course Title</th>
-            <th>FinalExam</th>
+            <th>Session</th>
             <th>Faculty</th>
             <th>Questions</th>
           </tr>
         </thead>
+        
         <tbody>
+          {%for q in ques %}
           <tr>
-            <td>#</td>
-            <td>Course Title</td>
-            <td>Course Title</td>
-            <td >  <button type="button" class="btn btn-primary fw-bold mx-3" data-bs-toggle="modal" data-bs-target="#finalexam">Final Exam </button>
-              <button type="button" class="btn btn-primary fw-bold" data-bs-toggle="modal" data-bs-target="#midexam">Mid Exam</button></td>  
+            <td >{{q.Course_title}}</td>
+            <td>{{q.sessions.date}}</td>
+            <td>{{q.sessions.faculty}}</td>
+            <td><a href="{{q.sessions.file}}" download>{{q.exam_type}}{{q.sessions.date}}</a></td>  
           </tr>
-          
+          {% endfor %}
         </tbody>
       </table>
     </div>
@@ -91,7 +92,7 @@
             </div>
             <div class="modal-body">
 
-              <form action="{% url 'add_question' %}" method="POST">
+              <form action="{% url 'add_question' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group mt-2">
 
@@ -118,7 +119,7 @@
                     <label for="midexam">Mid Exam</label><br>
                 </div>
                 <input type="file" name="pdf_file" value="something">
-                <button type="submit">Upload</button>
+                
                 <div class="text-center">
                   <button type="submit" class="btn btn-secondary text-white m-3">Add</button>
                 </div>
@@ -163,7 +164,7 @@
       
         // Loop through all table rows, and hide those who don't match the search query
         for (i = 0; i < tr.length; i++) {
-          td = tr[i].getElementsByTagName("td")[1];
+          td = tr[i].getElementsByTagName("td")[0];
           if (td) {
             txtValue = td.textContent || td.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {

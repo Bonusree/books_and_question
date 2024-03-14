@@ -15,16 +15,19 @@ class CustomUserManager(BaseUserManager):
         return user
 
     def create_superuser(self, username, roll,session,**extra_fields):
-        user = self.create_user(username=username, roll=roll, session=session)
+        user = self.create_user(username=username, roll=roll, session=session, password=123)
         user.is_superuser = True
         user.is_admin=True
         user.save(using=self._db)
         return user
+    def get_by_natural_key(self, username):
+        return self.get(username=username)
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=255, unique=True)
     roll = models.CharField(max_length=255,primary_key=True,unique=True)  # Treat the roll field as the phone roll
     session=models.CharField(max_length=255,unique=False)
+    
     is_staff = models.BooleanField(default=False) 
     is_superuser=models.BooleanField(default=False)
     USERNAME_FIELD = 'username'

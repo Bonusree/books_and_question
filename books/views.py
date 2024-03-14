@@ -13,12 +13,12 @@ def add_available_books(request):
         books_name = request.POST.get("book_name")
         owner_name = request.user.get_full_name()
         writer_name = request.POST.get("writer_name")
-        roll = request.user.roll
-        session = request.user.session
+        roll = str(request.user.roll)
+        session = str(request.user.session)
         ex = available_books.objects.filter(books_name=books_name, owner_name=owner_name,
                                             writer_name=writer_name, roll=roll, session=session).exists()
 
-        print(ex)
+        print(ex, "add available")
         context = {'review': '', 'msg': ''}
         if ex:
             context = {'review': 'no', 'msg': 'It has already been added'}
@@ -50,11 +50,12 @@ def add_need_books(request):
         writer_name=request.POST.get("writer_name")
         roll=request.user.roll
         session=request.user.session
-        try:
-            ex=need_books.objects.filter( books_name=books_name,borrower_name=borrower_name,
-                                            writer_name=writer_name,roll=roll,session=session).exists()
-        except Exception as e:
-            print(e)
+        ex=False
+        
+        ex=need_books.objects.filter( books_name=books_name,borrower_name=borrower_name,
+                                                writer_name=writer_name,roll=roll,session=session).exists()
+        print(ex)
+        
                 
         context={'review':'','msg':''}
         if ex:

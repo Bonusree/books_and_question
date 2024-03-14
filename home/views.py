@@ -16,11 +16,12 @@ def signup(request):
         name=request.POST.get('name')
         roll=request.POST.get('ID')
         session=request.POST.get('session')
+        password = request.POST['password']
         context={'type':'error','message':''}
         # if User.objects.filter(id=id).exists():
         #     context['message']="Already registered  with this ID"
         #     return render(request,'signup.html',context=context)
-        user=User.objects.create_user(username=name, roll=roll,session=session)
+        user=User.objects.create_user(username=name, roll=roll,session=session, password=password)
         user.save()
         login(request,user)
         return redirect( 'home')
@@ -29,8 +30,9 @@ def login_view(request):
     if request.method=='POST':
         name=request.POST.get('name')
         roll=request.POST.get('ID')
+        password = request.POST['password']
         context={'type':'error','message':''}
-        user=authenticate(request,username=name,roll=roll)
+        user=authenticate(request,username=name,roll=roll, password=password)
         print(user)
         if user is not None:
             login(request,user)

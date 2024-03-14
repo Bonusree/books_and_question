@@ -1,3 +1,7 @@
 from django.contrib import admin
+from books.models import *
 
-# Register your models here.
+admin.site.register(course_title)
+admin.site.register(available_books)
+admin.site.register(need_books)
+

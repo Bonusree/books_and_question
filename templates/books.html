@@ -33,18 +33,18 @@ books
         <button type="button" class="btn btn-sm border btn-default fw-bold mx-3"
           style="color:blue;" data-bs-toggle="modal"
           data-bs-target="#add_available_books">Add </button>
-        <button type="button" class="btn btn-default btn-sm border fw-bold"
+        <!-- <button type="button" class="btn btn-default btn-sm border fw-bold"
           style="color:blue;" data-bs-toggle="modal"
-          data-bs-target="#edit_available_books">edit</button>
+          data-bs-target="#edit_available_books">edit</button> -->
         {%endif%}
       </div>
     </div>
     
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Course Title..">
-    <div class="card m-4 p-3">
+    <div  id="searchableContent" class="card m-4 p-3">
       {% for course_title, book_data in books.items%}
       {%if book_data.available%}
-      <h4 id="available_course" class="m-2">{{course_title|capfirst}}</h4>
+      <h4 id="available_course" class="available_course m-2">{{course_title|capfirst}}</h4>
 
       <table class="table table-striped table-bordered m-3" style="width:90%;">
 
@@ -87,9 +87,9 @@ books
         <button type="button" class="btn btn-sm border btn-default fw-bold mx-3"
           style="color:blue;" data-bs-toggle="modal"
           data-bs-target="#add_need_books">Add </button>
-        <button type="button" class="btn btn-default btn-sm border fw-bold"
-          style="color:blue;" data-bs-toggle="modal"
-          data-bs-target="#edit_need_books">edit</button>
+        <!-- <button type="button" class="btn btn-default btn-sm border fw-bold"
+          style="color:blue;" data-bs-toggle="modal" 
+          data-bs-target="#edit_need_books">edit</button> -->
         {%endif%}
       </div>
     </div>
@@ -280,29 +280,22 @@ $(document).ready(function() {
   });
 });
 
-function myFunction() {
+function searchFunction() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("myInput");
+        input = document.getElementById('myInput');
         filter = input.value.toUpperCase();
         document.write(filter);
-        table = document.getElementByID("available_course");
-        document.write(table.length+"what");
-        // tr = table.getElementsByTagName("tr");
-      
-        // Loop through all table rows, and hide those who don't match the search query
-        // for (i = 0; i < table.length; i++) {
-        //   document.write(table[i]);
-        //   td = tr[i].getElementsByTagName("td")[0];
-        //   if (td) {
-        //     txtValue = td.textContent || td.innerText;
-        //     if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        //       tr[i].style.display = "";
-        //     } else {
-        //       tr[i].style.display = "none";
-        //     }
-        //   }
-        // }
+        table = document.getElementByID('searchableContent');
+        titles = table.getElementsByClassName('available_course');
+        for (i = 0; i < titles.length; i++) {
+        txtValue = titles[i].textContent || titles[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            titles[i].style.display = "";
+        } else {
+            titles[i].style.display = "none";
+        }
       }
+}
 </script> 
 {% endblock%}

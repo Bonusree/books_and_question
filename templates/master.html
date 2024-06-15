@@ -67,7 +67,7 @@
              {% if user.is_authenticated %}
            
             <li class="nav-item">
-              <a class="nav-link {% if request.path == '/profile/' %}active{% endif %}" href="/profile/">{{user.username}}</a>
+              <a class="nav-link {% if request.path == '/profile/' %}active{% endif %}" href="/">{{user.username}}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-danger {% if request.path == '/logout/' %}active{% endif %}" href="/logout/">Logout</a>

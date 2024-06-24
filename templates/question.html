@@ -36,7 +36,7 @@
             <td >{{q.Course_title}}</td>
             <td>{{q.sessions.date}}</td>
             <td>{{q.sessions.faculty}}</td>
-            <td><a href="{{q.sessions.file}}" download>{{q.exam_type}}{{q.sessions.date}}</a></td>  
+            <td><a href="{{q.sessions.file.url}}" download>{{q.exam_type}}{{q.sessions.date}}</a></td>  
           </tr>
           {% endfor %}
         </tbody>
